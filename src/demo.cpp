@@ -43,11 +43,11 @@ void plot3d(){
         figure.set_foreground_color("blue");
         figure.draw_box(0.1, 0.1, 0.1, 0.9, 0.9, 0.9);
         figure.set_foreground_color("green");
-        figure.draw_line(0.5, 0.5, 0.5, 0.9, 0.5, 0.5);
+        figure.draw_line(0.5, 0.5, -0.5, 0.9, 0.5, 0.5);
         figure.set_foreground_color("yellow");
-        figure.draw_line(0.5, 0.5, 0.5, 0.5, 0.9, 0.5);
+        figure.draw_line(-0.5, 0.5, 0.5, 0.5, 0.9, 0.5);
         figure.set_foreground_color("red");
-        figure.draw_line(0.5, 0.5, 0.5, 0.5, 0.5, 0.9);
+        figure.draw_line(0.5, -0.5, 0.5, 0.5, 0.5, 0.9);
         figure.show();
         figure.rotate_mouse();
     }
