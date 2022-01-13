@@ -33,7 +33,7 @@ private:
     Pixmap db;
     Colormap cmap;
     int depth;
-    int iscolor; // bool?
+    bool iscolor;
     int width;
     int height;
     double x0, x1;
