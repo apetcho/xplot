@@ -137,6 +137,21 @@ void Figure2D::set_scale(const Point2D& minp, const Point2D& maxp){
     yscale = ((double)height)/(y1 - y0);
 }
 
+/** Allocate a color and return its pixel value. */
+unsigned long Figure2D::allocate_color(const char *color){
+    unsigned long pixel = 0;
+    if(iscolor){
+        XColor match;
+        XColor exact;
+        if(XAllocNamedColor(display, cmap, color, &match, &exact)){
+            pixel = match.pixel;
+        }
+    }
+
+    return pixel;
+}
+
+
 // ****************************************************************
 //                  Figure3D Implementation
 // ****************************************************************
