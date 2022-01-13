@@ -62,8 +62,14 @@ public:
     unsigned long allocate_color(const char *color);
     unsigned long set_background_color(const char *color);
     inline void set_backgound_color(unsigned long pixel){
+        XSetForeground(display, gcb, pixel);
+    }
+
+    unsigned long set_foreground_color(const char *color);
+    inline void set_foregound_color(unsigned long pixel){
         XSetForeground(display, gcf, pixel);
     }
+
 
     void draw_point(double x, double y);
     void draw_point(const Point2D& point);

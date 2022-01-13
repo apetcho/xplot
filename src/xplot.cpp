@@ -152,6 +152,21 @@ unsigned long Figure2D::allocate_color(const char *color){
 }
 
 
+/** Set the background cursor to a given color. */
+unsigned long Figure2D::set_background_color(const char *color){
+    unsigned long pixel = 0;
+    if(iscolor){
+        XColor match;
+        XColor exact;
+        if(XAllocNamedColor(display, cmap, color, &match, &exact)){
+            XSetForeground(display, gcb, match.pixel);
+            pixel = match.pixel;
+        }
+    }
+
+    return pixel;
+}
+
 // ****************************************************************
 //                  Figure3D Implementation
 // ****************************************************************
