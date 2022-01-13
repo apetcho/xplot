@@ -621,6 +621,44 @@ int Figure3D::rotate_mouse(){
     return rotated;
 }
 
+/** Draw the coordinate axes and label them. */
+void Figure3D::draw_axes(double length){
+    static double XX[] = {  0.0,  1.0,  0.0,  1.0 };
+    static double XY[] = { -0.5,  0.5,  0.5, -0.5 };
+    static double YX[] = {  0.0,  0.0, -0.5,  0.0,  0.5,  0.0 };
+    static double YY[] = {  0.0,  0.6,  1.0,  0.6,  1.0,  0.6 };
+    static double ZX[] = {  1.0,  0.0,  0.0,  1.0,  1.0,  0.0, 0.25, 0.75 };
+    static double ZY[] = {  0.5,  0.5,  0.5, -0.5, -0.5, -0.5, 0.0,  0.0  };
 
+    double xcount = 2;
+    double ycount = 3;
+    double zcount = 4;
+    double lenfrac = 0.10;
+    double basefrac = 1.10;
+
+    draw_line(0.0, 0.0, 0.0, length, 0.0, 0.0);
+    draw_line(0.0, 0.0, 0.0, 0.0, length, 0.0);
+    draw_line(0.0, 0.0, 0.0, 0.0, 0.0, length);
+
+    double frac = length * lenfrac;
+    double base = length * basefrac;
+    for(int i = 0; i < xcount; i++){
+        draw_line(
+            base+frac*XX[2*i], frac*XY[2*i], 0.0,
+            base+frac*XX[2*i+1], frac*XY[2*i+1], 0.0);
+    }
+
+    for(int j = 0; j < ycount; j++){
+        draw_line(
+            base+frac*YX[2*j], frac*YY[2*j], 0.0,
+            base+frac*YX[2*j+1], frac*YY[2*j+1], 0.0);
+    }
+
+    for(int k = 0; k < zcount; k++){
+        draw_line(
+            base+frac*ZY[2*k], frac*ZX[2*k], 0.0,
+            base+frac*ZY[2*k+1], frac*ZX[2*k+1], 0.0);
+    }
+}
 
 }// End namespace xplot
