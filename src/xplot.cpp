@@ -495,4 +495,18 @@ void Figure3D::set_eye(double xyrot, double phi){
     orldphi = phi;
 }
 
+/** Draw a single point: Project 3D point into a 2D space. */
+void Figure3D::draw_point(double u, double v, double w){
+    double x, y;
+    _translate(x, y, u, v, w);
+    Figure2D::draw_point(x, y);
+}
+
+void Figure3D::draw_point(const Point3D& point){
+    const double u = point.x;
+    const double v = point.y;
+    const double w = point.z;
+    draw_point(u, v, w); 
+}
+
 }// End namespace xplot
