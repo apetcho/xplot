@@ -107,6 +107,16 @@ Figure2D::Figure2D(int _width, int _height,
     ymouse = 0.0;
 }
 
+/** Destruct of Figure2D class. Deallocates all resources. */
+Figure2D::~Figure2D(){
+    XUnmapWindow(display, win);
+    XDestroyWindow(display, win);
+    XFreePixmap(display, db);
+    XFreeFont(display, font);
+    XFreeGC(display, gcf);
+    XFreeGC(display, gcb);
+    XCloseDisplay(display);
+}
 
 // ****************************************************************
 //                  Figure3D Implementation
