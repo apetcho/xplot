@@ -146,8 +146,8 @@ private:
     double m11, m12, m13;
     double m21, m22, m23;
     bool rotating;
-    double mx, my;
-    double oldxyrot, orldphi;
+    double xmouse, ymouse;
+    double oldxyrot, oldphi;
 
 private:
     void _translate(double& x, double& y, double u, double v, double w);

@@ -492,7 +492,7 @@ void Figure3D::set_eye(double xyrot, double phi){
     m22 = cxy * cph;
     m23 = sph;
     oldxyrot = xyrot;
-    orldphi = phi;
+    oldphi = phi;
 }
 
 /** Draw a single point: Project 3D point into a 2D space. */
@@ -598,5 +598,29 @@ void Figure3D::draw_line(const Point3D& start, const Point3D& end){
     auto w1 = end.z;
     draw_line(u0, v0, w0, u1, v1, w1);
 }
+
+/** Rotate the coordinate system using the first mouse button. */
+int Figure3D::rotate_mouse(){
+    int rotated = 0;
+    if(!rotating){
+        rotating = (get_position(xmouse, ymouse) == MOUSE_BUTTON);
+    }else{
+        double x, y;
+        if(rotating = (get_position(xmouse, ymouse) == MOUSE_BUTTON)){
+            double xyrotnew = oldxyrot + XYROT_SCALE*(xmouse-x);
+            double phinew = oldphi + PHI_SCALE*(ymouse - y);
+            set_eye(xyrotnew, phinew);
+            rotated = 1;
+            oldxyrot = xyrotnew;
+            oldphi = phinew;
+            xmouse = x;
+            ymouse = y;
+        }
+    }
+
+    return rotated;
+}
+
+
 
 }// End namespace xplot
