@@ -471,4 +471,28 @@ void Figure3D::set_scale(const Point3D& p0, const Point3D& p1){
     set_scale(u0, u1, v0, v1, w0, w1);
 }
 
+/** Set the view location of the eye.
+ * The transformation matrix is as follow:
+ * 
+ *          cos(xyrot)              -sin(xyrot)             0
+ *          sin(xyrot)*sin(phi)     cos(xyrot)*cos(phi)     0
+ * 
+ */
+void Figure3D::set_eye(double xyrot, double phi){
+    double rxy = M_PI*xyrot/180.0;
+    double rph = M_PI*phi/180.0;
+    double cxy = cos(rxy);
+    double sxy = sin(rxy);
+    double cph = cos(rph);
+    double sph = sin(phi);
+    m11 = cxy;
+    m12 = -sxy;
+    m13 = 0.0;
+    m21 = sxy * cph;
+    m22 = cxy * cph;
+    m23 = sph;
+    oldxyrot = xyrot;
+    orldphi = phi;
+}
+
 }// End namespace xplot
