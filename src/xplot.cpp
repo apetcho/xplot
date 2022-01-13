@@ -280,6 +280,13 @@ void Figure2D::draw_line(double u0, double v0, double u1, double v1){
     XDrawLine(display, db, gcf, xmin, ymin, xmax, ymax);
 }
 
+void Figure2D::draw_line(const Point2D& start, const Point2D& end){
+    auto xmin = XSCALE(start.x);
+    auto xmax = XSCALE(end.x);
+    auto ymin = YSCALE(start.y);
+    auto ymax = YSCALE(end.y);
+    XDrawLine(display, db, gcf, xmin, ymin, xmax, ymax);
+}
 
 /** Write a string on the display using the default font. */
 void Figure2D::write_string(double x, double y, const char *text){
@@ -292,6 +299,55 @@ void Figure2D::write_string(const Point2D& pos, const char *text){
     auto xpos = XSCALE(pos.x);
     auto ypos = YSCALE(pos.y);
     XDrawString(display, db, gcf, xpos, ypos, text, strlen(text));
+}
+
+
+/** Diplay an image at a given coordinates. The image is flipped such that
+ * (0, 0) is in the lower left corner.*/
+void Figure2D::put_image(
+    double u0, double v0, double u1, double v1,
+    int imw, int imh, char *data
+){
+    auto xmin = XSCALE(u0);
+    auto xmax = XSCALE(u1);
+    auto ymin = YSCALE(v0);
+    auto ymax = YSCALE(v1);
+    auto xwidth = ABS(xmax - xmin) + 1;
+    auto xheight = ABS(ymax - ymin) + 1;
+    char *image = new char[xwidth*xheight];
+
+    for(int j=0; j < xheight; j++){
+        int dy = (imh - 1 - (j*imh)/xheight)*imw;
+        int xj = j * xwidth;
+        for(int i=0; i < xwidth; i++){
+            int dx = (i*imw)/xwidth;
+            image[xj+i] = data[dy+dx];
+        }
+    }
+
+    Screen *screen = DefaultScreenOfDisplay(display);
+    Visual *visual = DefaultVisualOfScreen(screen);
+    unsigned depth = DefaultDepthOfScreen(screen);
+    XImage *ximg = XCreateImage(
+        display, visual, depth, ZPixmap,
+        0, image, xwidth, xheight, 8, 0
+    );
+    int ll = MIN(xmin, xmax);
+    int ur = MIN(ymin, ymax);
+    XPutImage(display, db, gcf, ximg, 0, 0, ll, ur, xwidth, xheight);
+    XDestroyImage(ximg);
+    delete [] image;
+}
+
+void Figure2D::put_image(
+    const Point2D& llcnr, const Point2D& urcnr,
+    int imw, int imh, char *data
+){
+    auto u0 = llcnr.x;
+    auto u1 = urcnr.x;
+    auto v0 = llcnr.y;
+    auto v1 = urcnr.y;
+    put_image(u0, v0, u1, v1, imw, imh, data);
 }
 
 
