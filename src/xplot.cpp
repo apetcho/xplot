@@ -222,12 +222,33 @@ void Figure2D::draw_points(const std::vector<Point2D>& points){
     XPoint *xpts = new XPoint[n];
     int i = 0;
     for(auto point: points){
-        xpts[i].x = point.x;
-        xpts[i].y = point.y;
+        xpts[i].x = XSCALE(point.x);
+        xpts[i].y = YSCALE(point.y);
         i += 1;
     }
     XDrawPoints(display, db, gcf, xpts, n, CoordModeOrigin);
     delete [] xpts;
+}
+
+/** Draw a blob of a given radius */
+void Figure2D::draw_blob(double x, double y, double radius){
+    int xr = (int)(xscale*radius+0.5);
+    int yr = (int)(yscale*radius+0.5);
+    XDrawPoint(display, db, gcf, XSCALE(x), YSCALE(y));
+    XFillArc(display, db, gcf, XSCALE(x)-xr, YSCALE(y)-yr,
+        2*xr, 2*yr, 0, 64*360
+    );
+}
+
+void Figure2D::draw_blob(const Point2D& point, double radius){
+    auto xx = point.x;
+    auto yy = point.y;
+    int xr = (int)(xscale*radius+0.5);
+    int yr = (int)(yscale*radius+0.5);
+    XDrawPoint(display, db, gcf, XSCALE(xx), YSCALE(yy));
+    XFillArc(display, db, gcf, XSCALE(xx)-xr, YSCALE(yy)-yr,
+        2*xr, 2*yr, 0, 64*360
+    );
 }
 
 // ****************************************************************
