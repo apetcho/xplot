@@ -118,6 +118,25 @@ Figure2D::~Figure2D(){
     XCloseDisplay(display);
 }
 
+/** Set up the scaling for the coordinate system. */
+void Figure2D::set_scale(double u0, double u1, double v0, double v1){
+    x0 = u0;
+    x1 = u1;
+    y0 = v0;
+    y1 = v1;
+    xscale = ((double)width)/(x1 - x0);
+    yscale = ((double)height)/(y1 - y0);
+}
+
+void Figure2D::set_scale(const Point2D& minp, const Point2D& maxp){
+    x0 = minp.x;
+    x1 = maxp.x;
+    y0 = minp.y;
+    y1 = maxp.y;
+    xscale = ((double)width)/(x1 - x0);
+    yscale = ((double)height)/(y1 - y0);
+}
+
 // ****************************************************************
 //                  Figure3D Implementation
 // ****************************************************************

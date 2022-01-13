@@ -39,6 +39,7 @@ private:
     double x0, x1;
     double y0, y1;
     double xscale;
+    double yscale;
     int mousebtn;
     double xmouse, ymouse;
 
@@ -49,7 +50,7 @@ public:
 
     /****/
     void set_scale(double u0, double u1, double v0, double v1);
-    void set_scale(Point2D& src, Point2D& dst);
+    void set_scale(const Point2D& src, const Point2D& dst);
     void set_font(const char *font);
 
     // ---
