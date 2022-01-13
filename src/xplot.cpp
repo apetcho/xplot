@@ -182,6 +182,18 @@ unsigned long Figure2D::set_foreground_color(const char *color){
     return pixel;
 }
 
+/** Set new font. If the new font does not exist, keep the old one. */
+void Figure2D::set_font(const char* reqfont){
+    XFontStruct *newfont;
+    if(newfont = XLoadQueryFont(display, reqfont)){
+        XFreeFont(display, font);
+        font = newfont;
+        XGCValues xgc;
+        xgc.font = font->fid;
+        XChangeGC(display, gcf, GCFont, &xgc);
+    }
+}
+
 // ****************************************************************
 //                  Figure3D Implementation
 // ****************************************************************
