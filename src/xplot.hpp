@@ -48,6 +48,7 @@ public:
 
     /****/
     void set_scale(double u0, double u1, double v0, double v1);
+    void set_scale(Point2D& src, Point2D& dst);
     void set_font(const char *font);
 
     // ---
@@ -113,6 +114,13 @@ public:
         return mousebtn;
     }
 
+    inline int get_position(Point2D& point){
+        process_event();
+        point.x = xmouse;
+        point.y = ymouse;
+        return mousebtn;
+    }
+
     // ---
     ~Figure2D();
 
@@ -120,7 +128,32 @@ public:
 
 
 // 3D Plot
-class Figure3D;
+class Figure3D : public Figure2D {
+private:
+    double uorg, vorg, worg;
+    double uscl, vscl, wscl;
+    double len;
+    double m11, m12, m13;
+    double m21, m22, m23;
+    int rotating;
+    double mx, my;
+    double oldxyrot, orldphi;
+
+private:
+    void xlate(double& x, double& y, double u, double v, double w);
+    void xlate(Point2D& point2d, const Point3D& point3d);
+
+public:
+    Figure3D(int width, int height, const char *title, const char* server=NULL);
+
+    // ---
+    void set_scale(double u0, double u1, double v0, double v1,
+        double w0, double w1);
+    void set_scale(Point3D& src, Point3D& dst);
+
+
+
+}; // End Figure3D
 
 } // End name space xplot
 #endif
