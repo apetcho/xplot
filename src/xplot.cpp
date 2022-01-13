@@ -251,6 +251,27 @@ void Figure2D::draw_blob(const Point2D& point, double radius){
     );
 }
 
+/** Draw a rectangle with corners at (u0, v0) and (u1, v1) */
+void Figure2D::draw_box(double u0, double v0, double u1, double v1){
+    draw_line(u0, v0, u0, v1);
+    draw_line(u0, v0, u1, v0);
+    draw_line(u1, v1, u0, v1);
+    draw_line(u1, v1, u1, v0);
+}
+
+void Figure2D::draw_box(const Point2D& p0, const Point2D& p1){
+    auto u0 = p0.x;
+    auto v0 = p0.y;
+    auto u1 = p1.x;
+    auto v1 = p1.y;
+    draw_line(u0, v0, u0, v1);
+    draw_line(u0, v0, u1, v0);
+    draw_line(u1, v1, u0, v1);
+    draw_line(u1, v1, u1, v0);
+}
+
+
+
 // ****************************************************************
 //                  Figure3D Implementation
 // ****************************************************************
