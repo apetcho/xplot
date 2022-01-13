@@ -159,7 +159,7 @@ public:
     // ---
     void set_scale(double u0, double u1, double v0, double v1,
         double w0, double w1);
-    void set_scale(Point3D& src, Point3D& dst);
+    void set_scale(const Point3D& src, const Point3D& dst);
 
     // ---
     void set_eye(double xyrot, double phi);

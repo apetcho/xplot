@@ -461,4 +461,14 @@ void Figure3D::set_scale(double u0, double u1, double v0, double v1,
     len = sqrt(uscl*uscl + vscl*vscl + wscl*wscl);
 }
 
+void Figure3D::set_scale(const Point3D& p0, const Point3D& p1){
+    auto u0 = p0.x;
+    auto v0 = p0.y;
+    auto w0 = p0.z;
+    auto u1 = p1.x;
+    auto v1 = p1.y;
+    auto w1 = p1.z;
+    set_scale(u0, u1, v0, v1, w0, w1);
+}
+
 }// End namespace xplot
