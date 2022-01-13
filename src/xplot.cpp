@@ -548,4 +548,34 @@ void Figure3D::draw_blob(const Point3D& point, double radius){
     draw_blob(u, v, w, radius);
 }
 
+/** Draw a 3D box given its 2 most distance vertice (corners) */
+void Figure3D::draw_box(
+    double u0, double v0, double w0,
+    double u1, double v1, double w1
+){
+    draw_line(u0, v0, w0, u0, v0, w1);
+    draw_line(u0, v0, w0, u0, v1, w0);
+    draw_line(u0, v0, w0, u1, v0, w0);
+    draw_line(u1, v0, w0, u1, v1, w0);
+    draw_line(u1, v0, w0, u1, v0, w1);
+    draw_line(u0, v1, w0, u1, v1, w0);
+    draw_line(u0, v1, w0, u0, v1, w1);
+    draw_line(u0, v0, w1, u1, v0, w1);
+    draw_line(u0, v0, w1, u0, v1, w1);
+    draw_line(u0, v1, w1, u1, v1, w1);
+    draw_line(u1, v0, w1, u1, v1, w1);
+    draw_line(u1, v1, w0, u1, v1, w1);
+}
+
+void Figure3D::draw_box(const Point3D& p0, const Point3D& p1){
+    auto u0 = p0.x;
+    auto v0 = p0.y;
+    auto w0 = p0.z;
+    auto u1 = p1.x;
+    auto v1 = p1.y;
+    auto w1 = p1.z;
+    draw_box(u0, v0, w0, u1, v1, w1);
+}
+
+
 }// End namespace xplot
