@@ -428,4 +428,23 @@ Figure3D::Figure3D(int width, int height,
     set_eye(0.0, 0.0);
 }
 
+/** Translate between (u, v, w) space into (x, y) space usng simple 
+ * transformation (no perspective) */
+void Figure3D::_translate(double&x, double& y, double u, double v, double w){
+    double us = uscl*(u-uorg)-0.5;
+    double vs = vscl*(v-vorg)-0.5;
+    double ws = wscl*(w-worg)-0.5;
+    x = m11*us+m12*vs+m13*ws+0.5;
+    y = m21*us+m22*vs+m23*ws+0.5;
+}
+
+void Figure3D::_translate(Point2D& point, const Point3D& src){
+    auto u = src.x;
+    auto v = src.y;
+    auto w = src.z;
+    auto xx = point.x;
+    auto yy = point.y;
+    _translate(xx, yy, u, v, w);
+}
+
 }// End namespace xplot

@@ -150,8 +150,8 @@ private:
     double oldxyrot, orldphi;
 
 private:
-    void xlate(double& x, double& y, double u, double v, double w);
-    void xlate(Point2D& point2d, const Point3D& point3d);
+    void _translate(double& x, double& y, double u, double v, double w);
+    void _translate(Point2D& point2d, const Point3D& point3d);
 
 public:
     Figure3D(int width, int height, const char *title, const char* server=NULL);
