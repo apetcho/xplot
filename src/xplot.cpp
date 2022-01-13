@@ -270,6 +270,15 @@ void Figure2D::draw_box(const Point2D& p0, const Point2D& p1){
     draw_line(u1, v1, u1, v0);
 }
 
+/** Draw a line between two points (u0, v0) and (u1, v1) */
+void Figure2D::draw_line(double u0, double v0, double u1, double v1){
+    auto xmin = XSCALE(u0);
+    auto xmax = XSCALE(u1);
+    auto ymin = YSCALE(v0);
+    auto ymax = YSCALE(v1);
+    XDrawLine(display, db, gcf, xmin, ymin, xmax, ymax);
+}
+
 
 
 // ****************************************************************
