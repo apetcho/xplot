@@ -509,4 +509,29 @@ void Figure3D::draw_point(const Point3D& point){
     draw_point(u, v, w); 
 }
 
+/** Draw array of 3D points*/
+void Figure3D::draw_points(double src[][3], int n){
+    double (*pts)[2] = new double[n][2];
+    for(int i=0; i < n; i++){
+        _translate(pts[i][0], pts[i][1], src[i][0], src[i][1], src[i][2]);
+    }
+    Figure2D::draw_points(pts, n);
+    delete[] pts;
+}
+
+
+void Figure3D::draw_points(const std::vector<Point3D>& points){
+    const int n = points.size();
+
+    double (*pts)[2] = new double[n][2];
+    int i = 0;
+    for(auto point: points){
+        _translate(pts[i][0], pts[i][1], point.x, point.y, point.z);
+        i += 1;
+    }
+    Figure2D::draw_points(pts, n);
+    delete[] pts;
+}
+
+
 }// End namespace xplot
