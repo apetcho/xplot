@@ -577,5 +577,26 @@ void Figure3D::draw_box(const Point3D& p0, const Point3D& p1){
     draw_box(u0, v0, w0, u1, v1, w1);
 }
 
+/** Draw a line between two points (u0, v0, w0) and (u1, v1m w1) */
+void Figure3D::draw_line(
+    double u0, double v0, double w0,
+    double u1, double v1, double w1
+){
+    double xx0, yy0;
+    double xx1, yy1;
+    _translate(xx0, yy0, u0, v0, w0);
+    _translate(xx1, yy1, u1, v1, w1);
+    Figure2D::draw_line(xx0, yy0, xx1, yy1);
+}
+
+void Figure3D::draw_line(const Point3D& start, const Point3D& end){
+    auto u0 = start.x;
+    auto v0 = start.y;
+    auto w0 = start.z;
+    auto u1 = end.x;
+    auto v1 = end.y;
+    auto w1 = end.z;
+    draw_line(u0, v0, w0, u1, v1, w1);
+}
 
 }// End namespace xplot
