@@ -151,7 +151,40 @@ public:
         double w0, double w1);
     void set_scale(Point3D& src, Point3D& dst);
 
+    // ---
+    void set_eye(double xyrot, double phi);
+    int rotate_mouse();
 
+    // ---
+    void draw_point(double u, double v, double w);
+    void draw_point(const Point3D& point);
+    // ---
+    void draw_points(double points[][3], int n);
+    void draw_points(const std::vector<Point3D>& point3);
+
+    // ---
+    void draw_blob(double u, double v, double w, double radius);
+    void draw_blob(const Point3D& point, double radius);
+
+    // ---
+    void draw_box(
+        double u0, double v0, double w0,
+        double u1, double v1, double w1
+    );
+    void draw_box(const Point3D& ollcnr, const Point3D& iurcnr);
+
+    // ---
+    void draw_line(
+        double u0, double v0, double w0,
+        double u1, double v1, double w1
+    );
+    void draw_line(const Point3D& start, const Point3D& end);
+
+    // ---
+    void draw_axes(double len);
+
+    // --
+    inline ~Figure3D(){}
 
 }; // End Figure3D
 
