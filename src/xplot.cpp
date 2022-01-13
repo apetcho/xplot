@@ -2,6 +2,7 @@
 #include<iostream>
 #include<cstring>
 #include<string>
+#include<cmath>
 
 #define XSCALE(x) ((int)((x)-x0)*xscale+0.5)
 #define YSCALE(y) (height -((int)(((y)-y0)*yscale+0.5))-1)
@@ -445,6 +446,19 @@ void Figure3D::_translate(Point2D& point, const Point3D& src){
     auto xx = point.x;
     auto yy = point.y;
     _translate(xx, yy, u, v, w);
+}
+
+/** Set the scaling factor for the transform from 3d to 2d */
+void Figure3D::set_scale(double u0, double u1, double v0, double v1,
+    double w0, double w1
+){
+    uorg = u0;
+    vorg = v0;
+    worg = w0;
+    uscl = 1.0/(u1 - u0);
+    vscl = 1.0/(v1 - v0);
+    wscl = 1.0/(w1 - w0);
+    len = sqrt(uscl*uscl + vscl*vscl + wscl*wscl);
 }
 
 }// End namespace xplot
