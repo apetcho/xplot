@@ -62,12 +62,12 @@ public:
     // ---
     unsigned long allocate_color(const char *color);
     unsigned long set_background_color(const char *color);
-    inline void set_backgound_color(unsigned long pixel){
+    inline void set_background_color(unsigned long pixel){
         XSetForeground(display, gcb, pixel);
     }
 
     unsigned long set_foreground_color(const char *color);
-    inline void set_foregound_color(unsigned long pixel){
+    inline void set_foreground_color(unsigned long pixel){
         XSetForeground(display, gcf, pixel);
     }
 
