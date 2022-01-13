@@ -3,7 +3,7 @@
 #include<string>
 
 #define XSCALE(x) ((int)((x)-x0)*xscale+0.5)
-#define XSCALE(y) (height -((int)(((y)-y0)*yscale+0.5))-1)
+#define YSCALE(y) (height -((int)(((y)-y0)*yscale+0.5))-1)
 #define MIN(x, y) ((x) <= (y) ? (x) :  (y))
 #define MAX(x, y) ((x) >= (y) ? (x) :  (y))
 #define ABS(x)    (((x) >= 0) ? (x) : -(x))
@@ -193,6 +193,20 @@ void Figure2D::set_font(const char* reqfont){
         XChangeGC(display, gcf, GCFont, &xgc);
     }
 }
+
+
+/** Draw a single point on the display */
+void Figure2D::draw_point(double x, double y){
+    XDrawPoint(display, db, gcf, XSCALE(x), YSCALE(y));
+}
+
+void Figure2D::draw_point(const Point2D& point){
+    auto xp = point.x;
+    auto yp = point.y;
+    XDrawPoint(display, db, gcf, XSCALE(xp), YSCALE(yp));
+}
+
+
 
 // ****************************************************************
 //                  Figure3D Implementation
