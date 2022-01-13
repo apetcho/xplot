@@ -1,5 +1,6 @@
 #include "xplot.hpp"
 #include<iostream>
+#include<cstring>
 #include<string>
 
 #define XSCALE(x) ((int)((x)-x0)*xscale+0.5)
@@ -279,6 +280,19 @@ void Figure2D::draw_line(double u0, double v0, double u1, double v1){
     XDrawLine(display, db, gcf, xmin, ymin, xmax, ymax);
 }
 
+
+/** Write a string on the display using the default font. */
+void Figure2D::write_string(double x, double y, const char *text){
+    auto xpos = XSCALE(x);
+    auto ypos = YSCALE(y);
+    XDrawString(display, db, gcf, xpos, ypos, text, strlen(text));
+}
+
+void Figure2D::write_string(const Point2D& pos, const char *text){
+    auto xpos = XSCALE(pos.x);
+    auto ypos = YSCALE(pos.y);
+    XDrawString(display, db, gcf, xpos, ypos, text, strlen(text));
+}
 
 
 // ****************************************************************
