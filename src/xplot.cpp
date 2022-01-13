@@ -533,5 +533,19 @@ void Figure3D::draw_points(const std::vector<Point3D>& points){
     delete[] pts;
 }
 
+/** Draw a blob in 3D space */
+void Figure3D::draw_blob(double u, double v, double w, double radius){
+    double x, y;
+    _translate(x, y, u, v, w);
+    double r = radius*len;
+    Figure2D::draw_blob(x, y, r);
+}
+
+void Figure3D::draw_blob(const Point3D& point, double radius){
+    auto u = point.x;
+    auto v = point.y;
+    auto w = point.z;
+    draw_blob(u, v, w, radius);
+}
 
 }// End namespace xplot
