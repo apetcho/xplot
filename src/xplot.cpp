@@ -350,6 +350,63 @@ void Figure2D::put_image(
     put_image(u0, v0, u1, v1, imw, imh, data);
 }
 
+/** Handle all events which affect the window. */
+int Figure2D::process_event(){
+    XEvent event;
+    XFlush(display);
+    XSync(display, false);
+    int event_processed = 0;
+
+    while(XCheckWindowEvent(display, win, EVENTMASK, &event)){
+        event_processed = 1;
+        switch(event.type){
+        case ButtonPress:
+            mousebtn = event.xbutton.button;
+            xmouse = ((double)event.xbutton.x)/xscale+x0;
+            ymouse = ((double)event.xbutton.y)/xscale+y0; // XXX yscale?
+            break;
+        case ButtonRelease:
+            mousebtn = NO_MOUSE;
+            break;
+        case EnterNotify:
+            break;
+        case LeaveNotify:
+            break;
+        case MotionNotify:
+            xmouse = ((double)event.xbutton.x)/xscale+x0;
+            ymouse = ((double)event.xbutton.y)/xscale+y0;
+            break;
+        case Expose:
+            XCopyArea(display, db, win, gcf, 0, 0, width, height, 0, 0);
+            XFlush(display);
+            break;
+        case ConfigureNotify:
+            if((event.xconfigure.width != width ||
+                event.xconfigure.height != height))
+            {
+                width = event.xconfigure.width;
+                height = event.xconfigure.height;
+                XFreePixmap(display, db);
+                db = XCreatePixmap(display, win, width, height, depth);
+                clear();
+                xscale = ((double)width)/(x1 - x0);
+                yscale = ((double)height)/(y1 - y0);
+            }
+            break;
+        case MapNotify:
+            break;
+        case UnmapNotify:
+            break;
+        case DestroyNotify:
+            break;
+        default:
+            break;
+        }// switch
+    }
+
+    return event_processed;
+}
+
 
 // ****************************************************************
 //                  Figure3D Implementation
