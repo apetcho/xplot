@@ -22,6 +22,11 @@ static const auto DEFAULT_FONT = "8x13";
 static const auto GCFLAGS = (GCLineWidth | GCFunction | GCForeground | GCFont);
 static const auto NO_MOUSE = 0;
 
+/** Constants use in 3D context specifically */
+static const auto MOUSE_BUTTON = 1;
+static const auto XYROT_SCALE = -360.0;
+static const auto PHI_SCALE = 360.0;
+
 
 // ---
 namespace xplot {
@@ -411,5 +416,16 @@ int Figure2D::process_event(){
 // ****************************************************************
 //                  Figure3D Implementation
 // ****************************************************************
+
+/** Figure3D constructor: create the display and set up default coordinate
+ * transform. */
+Figure3D::Figure3D(int width, int height,
+    const char *title, const char*server
+) : Figure2D(width, height, title, server), rotating(false)
+{
+    Figure2D::set_scale(0.0, 1.0, 0.0, 1.0);
+    set_scale(0.0, 1.0, 0.0, 1.0, 0.0, 1.0);
+    set_eye(0.0, 0.0);
+}
 
 }// End namespace xplot

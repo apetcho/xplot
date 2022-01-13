@@ -20,8 +20,9 @@ struct Point3D: public Point2D {
     double z;
 };
 
-
-// 2D Plot
+// ------------
+// 2D Graphics
+// ------------
 class Figure2D{
 private:
     /* Display information needed to manage the display */
@@ -134,8 +135,9 @@ public:
 
 }; // Figure2D
 
-
-// 3D Plot
+// ------------
+// 3D Graphics
+// ------------
 class Figure3D : public Figure2D {
 private:
     double uorg, vorg, worg;
@@ -143,7 +145,7 @@ private:
     double len;
     double m11, m12, m13;
     double m21, m22, m23;
-    int rotating;
+    bool rotating;
     double mx, my;
     double oldxyrot, orldphi;
 
