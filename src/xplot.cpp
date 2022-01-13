@@ -206,7 +206,29 @@ void Figure2D::draw_point(const Point2D& point){
     XDrawPoint(display, db, gcf, XSCALE(xp), YSCALE(yp));
 }
 
+/** Draw an array of points on the display */
+void Figure2D::draw_points(double points[][2], int n){
+    XPoint *xpts = new XPoint[n];
+    for(int i=0; i < n; i++){
+        xpts[i].x = XSCALE(points[i][0]);
+        xpts[i].y = YSCALE(points[i][1]);
+    }
+    XDrawPoints(display, db, gcf, xpts, n, CoordModeOrigin);
+    delete [] xpts;
+}
 
+void Figure2D::draw_points(const std::vector<Point2D>& points){
+    const auto n = points.size();
+    XPoint *xpts = new XPoint[n];
+    int i = 0;
+    for(auto point: points){
+        xpts[i].x = point.x;
+        xpts[i].y = point.y;
+        i += 1;
+    }
+    XDrawPoints(display, db, gcf, xpts, n, CoordModeOrigin);
+    delete [] xpts;
+}
 
 // ****************************************************************
 //                  Figure3D Implementation
